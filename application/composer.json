@@ -1,0 +1,14 @@
+{
+    "name": "wxy/www.hotvideo.com",
+    "description": "hotvideo",
+    "require": {
+        "smarty/smarty": "*"
+    },
+    "authors": [
+        {
+            "name": "andy",
+            "email": "andy@hotvideo.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
