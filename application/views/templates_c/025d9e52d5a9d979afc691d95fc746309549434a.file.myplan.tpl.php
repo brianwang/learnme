@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.19-dev, created on 2015-02-27 11:17:48
+<?php /* Smarty version Smarty-3.1.19-dev, created on 2015-02-28 04:17:53
          compiled from "application\views\myplan.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:817354df053b56bb67-10043629%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '025d9e52d5a9d979afc691d95fc746309549434a' => 
     array (
       0 => 'application\\views\\myplan.tpl',
-      1 => 1425026311,
+      1 => 1425093441,
       2 => 'file',
     ),
     '359fe87966e65ca692174d35db7269773e51e876' => 
@@ -19,7 +19,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '71f140b0174d476da8f10fc64d280f53daa67c6b' => 
     array (
       0 => 'application\\views\\layouts\\main.tpl',
-      1 => 1425027645,
+      1 => 1425093343,
       2 => 'file',
     ),
   ),
@@ -49,11 +49,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 ">
         <link rel="stylesheet" href="<?php echo base_url('/assets/css/dashboard.css');?>
 ">
+        <?php echo bower('jquery/dist/jquery.js');?>
+
+        
+        
+        
         <!-- Optional theme -->
         <script src="<?php echo base_url('/assets/js/ie-emulation-modes-warning.js');?>
 "></script>
         <!-- Latest compiled and minified JavaScript -->
-        <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
         <script src="<?php echo base_url('/assets/bower_components/holderjs/holder.js');?>
 "></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -64,7 +68,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+        
         <title><?php echo $_smarty_tpl->tpl_vars['g']->value['sitename'];?>
 </title>
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -77,17 +81,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <?php echo bower('jquery-serializeForm/dist/jquery-serializeForm.js');?>
+
+        <?php echo bower('knockout/dist/knockout.debug.js');?>
+
         <script src="<?php echo site_url('/remotejs/config');?>
 "></script>
 
     
-    <script src="<?php echo base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js');?>
-"></script>
-    <link rel="stylesheet" href="<?php echo base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');?>
-">
-    <?php echo js('myplan.js');?>
-
-
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -145,44 +146,46 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             </div>
             <div class="col-sm-7 col-sm-offset-3 col-md-8 col-md-offset-2 main">
             
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="plantilte">标题</label>
-            <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" >
-        </div>
-        <div class="form-group">
-            <label for="tags">标签</label>
-            <input type="text" class="form-control" id="tags" placeholder="输入标签" data-role="tagsinput" style="width: 500px;">
-        </div>
-        <div class="form-group">
-            <label for="tags">类型</label>
-            <select name="tasktype" class="form-control">
-                <option>周任务</option>
-                <option>月任务</option>
-                <option>年任务</option>
-                <option>长期任务</option>
-            </select>  
-        </div>
+    <div id="planopts">
+        <form class="form-horizontal" id="form_plan">
+            <div class="form-group">
+                <label for="plantilte">标题</label>
+                <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" name="title">
+            </div>
+            <div class="form-group">
+                <label for="tags">标签</label>
+                <input type="text" class="form-control" id="tags" placeholder="输入标签" data-role="tagsinput" style="width: 500px;" name="tags">
+            </div>
+            <div class="form-group">
+                <label for="tags">类型</label>
+                <select name="type" class="form-control">
+                    <option>周任务</option>
+                    <option>月任务</option>
+                    <option>年任务</option>
+                    <option>长期任务</option>
+                </select>  
+            </div>
 
-        <div class="form-group">
-            <a href="#" class="btn btn-info">保存</a>
-        </div>
-    </form>
-    <a class="btn btn-primary">添加计划</a>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="content">步骤简介</label>
-            <input type="text" name="steptitle" id="content" placeholder="任务内容" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="content">步骤细节</label>
-            <textarea type="text" name="assumetime" placeholder="步骤的细节" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <a class="btn btn-info">保存</a>
-        </div
+            <div class="form-group">
+                <a href="#" class="btn btn-info" data-bind="click: add">保存</a>
+            </div>
+        </form>
+        <a class="btn btn-primary">添加计划</a>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="content">步骤简介</label>
+                <input type="text" name="steptitle" id="content" placeholder="任务内容" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="content">步骤细节</label>
+                <textarea type="text" name="assumetime" placeholder="步骤的细节" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-info">保存</a>
+            </div
     </div>
 </form>
+</div>
 <ul class="list-group">
     <li class="list-group-item">
         <h2>我要在一周内学会C++</h2>
@@ -283,6 +286,22 @@ $_smarty_tpl->tpl_vars['plan']->_loop = true;
    
 <?php echo $_smarty_tpl->getSubTemplate ("layouts/footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 
+
+    <?php echo bower('/bootstrap-tagsinput/dist/bootstrap-tagsinput.js');?>
+
+    <?php echo bower('jquery.validate/dist/jquery.validate.js');?>
+
+    <?php echo bower('jquery.validate/dist/additional-methods.js');?>
+
+    <link rel="stylesheet" href="<?php echo base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');?>
+">
+    <link rel="stylesheet" href="<?php echo base_url('/assets/bower_components/form.validation/dist/css/bootstrapValidator.css');?>
+">
+    <?php echo bower('form.validation/dist/js/bootstrapValidator.js');?>
+
+    <?php echo js('myplan.js');?>
+
+   
 </body>
 </html>
 

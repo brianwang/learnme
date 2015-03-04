@@ -36,10 +36,23 @@ class ModelController extends BaseController {
     //添加计划
     public function add() {
         if ($this->input->is_post()) {
-            $validatename = $this->modelname . '_valid';
+            $validatename = strtolower($this->modelname . '_valid');
             if ($this->form_validation->run($validatename) == TRUE) {
                 $data = $this->input->post();
-                $data = $this->{$this->modelclass}->insert($data, true);
+                if (isset($data['tags'])) {
+                    $tags = explode(',', $data['tags']);
+                    unset($data['tags']);
+                }
+                if ($data['type'] == 'week') {
+                    $data['duration'] = 7 * 24 * 60;
+                } elseif ($data['type'] == 'month') {
+                    $data['duration'] = 30 * 24 * 60;
+                } elseif ($data['type'] == 'year') {
+                    $data['duration'] = 365 * 24 * 60;
+                } else {
+                    $data['duration'] = -1;
+                }
+                $data = $this->{$this->modelclass}->insert($data, $tags, true);
                 $this->output->json(array('result' => 'success'));
             } else {
                 $errors = validation_errors();
@@ -61,6 +74,15 @@ class ModelController extends BaseController {
                 $this->output->json($err);
                 return;
             }
+        }
+    }
+
+    public function remove($id = null) {
+        if ($id == null) {
+            $this->output->json(array('error' => 'No pk id'));
+        } else {
+            $this->{$this->modelclass}->delete($id);
+            $this->output->json(array('result' => 'success'));
         }
     }
 

@@ -28,6 +28,11 @@ $config = array(
             'label' => '创始人信息',
             'rules' => 'required'
         ),
+        array(
+            'field' => 'tags',
+            'label' => '标签内容',
+            'rules' => 'required'
+        ),
     ),
     'step_valid' => array(
         array(

@@ -18,7 +18,7 @@ class Remotejs extends BaseController {
     public function config() {
         $this->output->set_content_type('js');
         $this->output->set_output('var urls = ' . json_encode(array(
-                    'plan_url' => base_url('/plan'),
+                    'plan' => array('addurl' => base_url('/plan/add'),'rmurl'=>base_url('/plan/remove')),
                     'step_url' => base_url('/step')
                         ), JSON_FORCE_OBJECT | JSON_UNESCAPED_SLASHES)
         );

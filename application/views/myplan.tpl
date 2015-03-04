@@ -1,48 +1,58 @@
 {extends file='layouts\col2.tpl'}
-{block name=header}
-    <script src="{base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')}"></script>
+{block name=script}
+    {bower('/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')}
+    {bower('jquery.validate/dist/jquery.validate.js')}
+    {bower('jquery.validate/dist/additional-methods.js')}
     <link rel="stylesheet" href="{base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}">
+    <link rel="stylesheet" href="{base_url('/assets/bower_components/form.validation/dist/css/bootstrapValidator.css')}">
+    {bower('form.validation/dist/js/bootstrapValidator.js')}
     {js('myplan.js')}
 {/block}
 {block name=body}
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="plantilte">标题</label>
-            <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" >
-        </div>
-        <div class="form-group">
-            <label for="tags">标签</label>
-            <input type="text" class="form-control" id="tags" placeholder="输入标签" data-role="tagsinput" style="width: 500px;">
-        </div>
-        <div class="form-group">
-            <label for="tags">类型</label>
-            <select name="tasktype" class="form-control">
-                <option>周任务</option>
-                <option>月任务</option>
-                <option>年任务</option>
-                <option>长期任务</option>
-            </select>  
-        </div>
-
-        <div class="form-group">
-            <a href="#" class="btn btn-info">保存</a>
-        </div>
-    </form>
-    <a class="btn btn-primary">添加计划</a>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="content">步骤简介</label>
-            <input type="text" name="steptitle" id="content" placeholder="任务内容" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="content">步骤细节</label>
-            <textarea type="text" name="assumetime" placeholder="步骤的细节" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <a class="btn btn-info">保存</a>
-        </div
+    <div id="planopts">
+        <form class="form-horizontal" id="form_plan">
+            <input type="hidden" name="author" value="{$smarty.session.uid|default: '33'}"/>
+            <div class="form-group">
+                <label for="plantilte">标题</label>
+                <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" name="title">
+            </div>
+            <div class="form-group">
+                <label for="tags">标签</label>
+                <input type="text" class="form-control" id="tags" placeholder="输入标签" data-role="tagsinput" style="width: 500px;" name="tags">
+            </div>
+            <div class="form-group">
+                <label for="tags">类型</label>
+                <select name="type" class="form-control">
+                    <option value='week'>周任务</option>
+                    <option value='month'>月任务</option>
+                    <option value='year'>年任务</option>
+                    <option value='long'>长期任务</option>
+                </select>  
+            </div>
+            <div class="form-group">
+                <label for="content">内容</label>
+                <textarea type="text" class="form-control" id="content" placeholder="计划内容" name="content"></textarea>
+            </div>
+            <div class="form-group">
+                <a href="#" class="btn btn-info" data-bind="click: add">保存</a>
+            </div>
+        </form>
+        <a class="btn btn-primary">添加计划</a>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="content">步骤简介</label>
+                <input type="text" name="steptitle" id="content" placeholder="任务内容" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="content">步骤细节</label>
+                <textarea type="text" name="assumetime" placeholder="步骤的细节" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-info">保存</a>
+            </div
     </div>
 </form>
+</div>
 <ul class="list-group">
     <li class="list-group-item">
         <h2>我要在一周内学会C++</h2>

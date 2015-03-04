@@ -55,6 +55,7 @@ $config['css_path'] = 'assets/css/';
 $config['download_path'] = 'assets/download/';
 $config['less_path'] = 'assets/less/';
 $config['js_path'] = 'assets/js/';
+$config['bower_path'] = 'assets/bower_components/';
 $config['img_path'] = 'assets/img/';
 $config['swf_path'] = 'assets/swf/';
 $config['upload_path'] = 'assets/upload/';

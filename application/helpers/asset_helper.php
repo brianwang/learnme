@@ -102,6 +102,22 @@ if (!function_exists('js_url')) {
     }
 
 }
+
+/**
+ * Get js URL
+ *
+ * @access  public
+ * @return  string
+ */
+if (!function_exists('bower_url')) {
+
+    function bower_url() {
+        $CI = & get_instance();
+        return base_url() . $CI->config->item('bower_path');
+    }
+
+}
+
 /**
  * Get image URL
  *
@@ -234,18 +250,35 @@ if (!function_exists('js_path')) {
     }
 
 }
+
+
+/**
+ * Get JS Path
+ *
+ * @access  public
+ * @return  string
+ */
+if (!function_exists('js_path')) {
+
+    function js_path() {
+        //get an instance of CI so we can access our configuration
+        $CI = & get_instance();
+        return FCPATH . $CI->config->item('js_path');
+    }
+
+}
 /**
  * Get image Path
  *
  * @access  public
  * @return  string
  */
-if (!function_exists('img_path')) {
+if (!function_exists('bower_path')) {
 
     function img_path() {
         //get an instance of CI so we can access our configuration
         $CI = & get_instance();
-        return FCPATH . $CI->config->item('img_path');
+        return FCPATH . $CI->config->item('bower_path');
     }
 
 }
@@ -382,6 +415,27 @@ if (!function_exists('js')) {
     }
 
 }
+
+/**
+ * Load JS
+ * Creates the <script> tag that links all requested js file
+ * @access  public
+ * @param   string
+ * @param 	array 	$atts Optional, additional key/value attributes to include in the SCRIPT tag
+ * @return  string
+ */
+if (!function_exists('bower')) {
+
+    function bower($file, $atts = array()) {
+        $element = '<script type="text/javascript" src="' . bower_url() . $file . '"';
+        foreach ($atts as $key => $val)
+            $element .= ' ' . $key . '="' . $val . '"';
+        $element .= '></script>' . "\n";
+        return $element;
+    }
+
+}
+
 /**
  * Load Image
  * Creates an <img> tag with src and optional attributes
