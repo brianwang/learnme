@@ -12,3 +12,7 @@ function calcTaskHot(){
     
     
 }
+
+
+///计算相似度
+//function calc
