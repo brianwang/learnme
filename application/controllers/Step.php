@@ -12,8 +12,5 @@
  * @author Administrator
  */
 class Step extends ModelController {
-
-    //put your code here
-    protected $modelname = 'step';
-
+    
 }

@@ -39,20 +39,7 @@ class ModelController extends BaseController {
             $validatename = strtolower($this->modelname . '_valid');
             if ($this->form_validation->run($validatename) == TRUE) {
                 $data = $this->input->post();
-                if (isset($data['tags'])) {
-                    $tags = explode(',', $data['tags']);
-                    unset($data['tags']);
-                }
-                if ($data['type'] == 'week') {
-                    $data['duration'] = 7 * 24 * 60;
-                } elseif ($data['type'] == 'month') {
-                    $data['duration'] = 30 * 24 * 60;
-                } elseif ($data['type'] == 'year') {
-                    $data['duration'] = 365 * 24 * 60;
-                } else {
-                    $data['duration'] = -1;
-                }
-                $data = $this->{$this->modelclass}->insert($data, $tags, true);
+                $data = $this->{$this->modelclass}->insert($data, true);
                 $this->output->json(array('result' => 'success'));
             } else {
                 $errors = validation_errors();

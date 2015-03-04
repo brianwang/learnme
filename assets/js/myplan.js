@@ -37,6 +37,19 @@ var planmodel = function () {
     self.get = function () {
 
     }
+
+    self.addstep = function () {
+        if ($("#form_step").valid()) {
+            var data = $('#form_step').serializeForm();
+            $.post(planurls.addstepurl, data, function (result) {
+                if (result.result == 'success') {
+                    alert('添加成功');
+                } else {
+                    alert(result.message);
+                }
+            });
+        }
+    }
     self.getbyuid = function (uid) {
         //$.get()
     }
