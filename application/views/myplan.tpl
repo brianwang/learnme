@@ -15,42 +15,48 @@
     </div>
     <div style=" border: 1px solid #ccc;box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);padding: 20px; border-radius: 5px;" 
          id="addplan">
-        <ul id="planlist" data-bind="foreach: plans" class="list-group">
-            <li class="list-group-item row">
-                <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id }">
-                    <span data-bind="text: $data.title" class="col-md-10"></span>
-                    <span  data-bind="text: $data.type" class="col-md-2"></span>
-                </a>
-            </li>
-        </ul>
-        <div id="tmp_addplan" style="font-size: 24px;">
+        <div id="planlist" data-bind="foreach: plans" >
+            <div class="media-list">
+                <div class="media-left media-middle" style="border-right: solid 1px;">
+                    <a data-bind="click: $parent.finish" title="该计划" class="media-object">
+                        <span class="glyphicon glyphicon-ok"></span>                            
+                    </a>
+                </div>
+                <div class="media-body row">
+                    <div class="panel">
+                        <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id }">
+                            <span data-bind="text: $data.title" class="col-md-8"></span></a>
+                        <span  data-bind="text: $data.type" class="col-md-2"></span>
+                        <span class="col-md-2">
+                            <a data-bind="click: $parent.showaddstep" title="添加计划步骤">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                            </a>                          
+                        </span>
+                    </div>
+                    <hr/>
+                    <ul class="list-group" data-bind="foreach: { data: $data.steps, as: 'step' }">
+                        <li class="list-group-item">
+                            <span data-bind="text: step.title"></span>
+                        </li>
+                    </ul>
+                    <form class="form-horizontal" id="form_step" >
+                        <input type="hidden" name="plan_id" value="" data-bind="attr: { value: $data.id}"/>
+                        <div class="form-inline">
+                            <input type="text" name="title" id="content" placeholder="任务内容" class="form-control">
+                            <a class="btn btn-info" data-bind="click: $parent.addstep">保存</a>
+                        </div>
+                    </form>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div id="tmp_addplan" style="font-size: 18px;">
             <a data-bind="click: showaddplan">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
                 <span class="border-radus: 4px;">添加新的学习计划</span>
             </a>
         </div>
-        <form class="form-horizontal" id="form_plan" style="display: none;">
-            <div class="form-inline" style="margin-bottom: 10px;">
-                <input type="hidden" name="author" value="{$smarty.session.uid|default: '33'}"/>
-                <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" name="title">
-                <select name="type" class="form-control">
-                    <option value='week'>周任务</option>
-                    <option value='month'>月任务</option>
-                    <option value='year'>年任务</option>
-                    <option value='long'>长期任务</option>
-                </select>
-            </div>
-            <div class="form-inline" style="margin-bottom: 10px;width: 440px;">
-                <input type="text" class="form-control" id="tags" placeholder="输入标签" data-role="tagsinput" name="tags">
-            </div>
-            <div style="width: 440px;margin-bottom: 10px;">
-                <textarea type="text" class="form-control" id="content" placeholder="计划内容" name="content"></textarea>
-            </div>
-            <div class="form-inline">
-                <a href="#" class="btn btn-info" data-bind="click: add">保存</a>
-                <a href="#" class="btn btn-warning" data-bind="click: close">关闭</a>
-            </div>
-        </form>
+
     </div>
     <div id="planopts">
         <form class="form-horizontal" id="form_plan" style="display: none;">
@@ -102,25 +108,21 @@
         <a href="#" class="btn btn-info" data-bind="click: add">保存</a>
         </div>
         </form>*}
-        <a class="btn btn-primary">添加计划</a>
+        {*<a class="btn btn-primary">添加计划</a>
         <form class="form-horizontal" id="form_step">
-            <input type="hidden" name="plan_id" value="2"/>
-            <div class="form-group">
-                <label for="content">步骤简介</label>
-                <input type="text" name="title" id="content" placeholder="任务内容" class="form-control">
-            </div>
-            {*          <div class="form-group">
-            <label for="content">步骤细节</label>
-            <textarea type="text" name="content" placeholder="步骤的细节" class="form-control"></textarea>
-            </div>*}
-            <div class="form-group">
-                <label for="content">步骤ID</label>
-                <input type="text" name="idx" placeholder="任务第几步">
-            </div>
-            <div class="form-group">
-                <a class="btn btn-info" data-bind="click: addstep">保存</a>
-            </div>
-        </form>
+        <input type="hidden" name="plan_id" value="2"/>
+        <div class="form-group">
+        <label for="content">步骤简介</label>
+        <input type="text" name="title" id="content" placeholder="任务内容" class="form-control">
+        </div>
+        <div class="form-group">
+        <label for="content">步骤ID</label>
+        <input type="text" name="idx" placeholder="任务第几步">
+        </div>
+        <div class="form-group">
+        <a class="btn btn-info" data-bind="click: addstep">保存</a>
+        </div>
+        </form>*}
     </div>
     <ul class="list-group">
         <li class="list-group-item">

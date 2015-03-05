@@ -69,7 +69,8 @@ class PlanModel extends MY_Model {
         $result = array();
         if ($uid == '')
             return $result;
-        $result = array_values($this->get_many_by(array('author' => $uid)));
+        $plans = $this->get_many_by(array('author' => $uid));
+        $result = $plans;
         return $result;
     }
 

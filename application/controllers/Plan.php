@@ -41,6 +41,7 @@ class Plan extends ModelController {
         } else {
             $this->output->json(array('error' => '必须使用post'));
         }
-    }
+    }    
+    
 
 }
