@@ -31,8 +31,9 @@ class Plan extends ModelController {
                 } else {
                     $data['duration'] = -1;
                 }
-                $data = $this->{$this->modelclass}->insert($data, $tags, true);
-                $this->output->json(array('result' => 'success'));
+                $id = $this->{$this->modelclass}->insert($data, $tags, true);
+                $data['id'] =$id;
+                $this->output->json(array('result' => 'success', 'plan' => $data));
             } else {
                 $errors = validation_errors();
                 $this->output->json($errors);

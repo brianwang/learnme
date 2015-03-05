@@ -58,10 +58,18 @@ class PlanModel extends MY_Model {
         $this->_database->insert_batch('plan_tags', $tagsdata);
         return $tags;
     }
-    
+
     //获得最热门的plan，分页
     public function getHot() {
         $result = $this->get_many_by(array(''));
+        return $result;
+    }
+
+    public function getbyuid($uid = '') {
+        $result = array();
+        if ($uid == '')
+            return $result;
+        $result = array_values($this->get_many_by(array('author' => $uid)));
         return $result;
     }
 

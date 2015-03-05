@@ -1,7 +1,8 @@
 var planmodel = function () {
     var self = this;
     var planurls = urls.plan;
-    var baseurl = urls.plan.addurl;
+    self.baseurl = urls.plan.baseurl;
+    self.plans = ko.observableArray(gl.plans);
     //添加计划
     self.add = function () {
         if ($("#form_plan").valid()) {
@@ -10,7 +11,9 @@ var planmodel = function () {
                 var plandata = $('#form_plan').serializeForm();
                 $.post(planurls.addurl, plandata, function (result) {
                     if (result.result == 'success') {
-                        alert('添加成功');
+                        //alert('添加成功');
+                        self.plans.push(result.plan);
+                        self.close();
                     } else {
                         alert(result.message);
                     }
@@ -20,6 +23,13 @@ var planmodel = function () {
                 $('#tags').next().after($lable);
             }
         }
+    }
+
+    self.close = function () {
+        //清空Form
+        $("#form_plan")[0].reset();
+        $('#tmp_addplan').show();
+        $('#form_plan').hide();
     }
 
     self.update = self.add;
@@ -85,10 +95,19 @@ var planmodel = function () {
 //            }
 //        }
 //    });
+    return self;
 }
-var planobj = new planmodel();
-ko.applyBindings(planobj, document.getElementById("planopts"));
-//ko.applyBindings(planobj,);
+var myplanview = function () {
+    var self = new planmodel();
+    self.showaddplan = function () {
+        $('#tmp_addplan').hide();
+        $('#form_plan').show();
+        //$('#form_plan').toggle();
+    }
+    return self;
+}
 
+var myplanobj = new myplanview();
+ko.applyBindings(myplanobj, document.getElementById("addplan"));
 //var myplanmodelobj = new myplanmodel();
 //ko.applyBindings(myplanmodelobj);

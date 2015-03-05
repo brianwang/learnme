@@ -29,6 +29,14 @@ class Page extends BaseController {
         $this->smarty->view('myplan.tpl');
     }
 
+    
+     public function login() {
+        $this->smarty->view('login.tpl');
+    }
+    
+    public function register() {
+        $this->smarty->view('register.tpl');
+    }
 }
 
 /* End of file welcome.php */
