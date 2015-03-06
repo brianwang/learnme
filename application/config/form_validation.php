@@ -50,5 +50,34 @@ $config = array(
             'label' => '索引',
             'rules' => 'required'
         ),
+    ),
+    'register' => array(
+        array(
+            'field' => 'email',
+            'label' => '邮箱/用户名/密码',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'password',
+            'label' => '密码',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'confirm_password',
+            'label' => '确认密码',
+            'rules' => 'required'
+        ),
+    ),
+    'login' => array(
+        array(
+            'field' => 'email',
+            'label' => '邮箱/用户名/密码',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'password',
+            'label' => '密码',
+            'rules' => 'required'
+        )
     )
 );

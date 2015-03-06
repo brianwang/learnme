@@ -1,8 +1,26 @@
+var stepmodel = function (title, idx) {
+    var self = this;
+    self.title = ko.observable(title);
+    self.idx = ko.observable(idx);
+    return self;
+}
+
 var planmodel = function () {
     var self = this;
     var planurls = urls.plan;
     self.baseurl = urls.plan.baseurl;
-    self.plans = ko.observableArray(gl.plans);
+    self.plans = ko.observableArray([]);
+    for (var i = 0; i < gl.plans.length; i++) {
+        var plan = gl.plans[i];
+        var steps = plan.steps.slice(0);
+        plan.steps = ko.observableArray([]);
+        for (var j = 0; j < steps.length; j++) {
+            var step = steps[j];
+            plan.steps.push(new stepmodel(step.title, step.idx));
+        }
+        self.plans.push(plan);
+    }
+    //self.plans = ko.observableArray(gl.plans);
     //添加计划
     self.add = function () {
         if ($("#form_plan").valid()) {
@@ -12,7 +30,9 @@ var planmodel = function () {
                 $.post(planurls.addurl, plandata, function (result) {
                     if (result.result == 'success') {
                         //alert('添加成功');
-                        self.plans.push(result.plan);
+                        var plan = result.plan;
+                        plan.steps =  ko.observableArray([]);
+                        self.plans.push(plan);
                         self.close();
                     } else {
                         alert(result.message);
@@ -48,18 +68,7 @@ var planmodel = function () {
 
     }
 
-    self.addstep = function () {
-        if ($("#form_step").valid()) {
-            var data = $('#form_step').serializeForm();
-            $.post(planurls.addstepurl, data, function (result) {
-                if (result.result == 'success') {
-                    alert('添加成功');
-                } else {
-                    alert(result.message);
-                }
-            });
-        }
-    }
+    
     self.getbyuid = function (uid) {
         //$.get()
     }
@@ -75,6 +84,15 @@ var planmodel = function () {
                     title: "请输入标题",
                     //tags: {require_from_tags: "请写入至少一个标签"},
                     type: {required: "请选择一个类型"}
+                }
+            });
+    $('#form_step')
+            .validate({
+                rules: {
+                    title: "required"
+                },
+                messages: {
+                    title: "请输入标题"
                 }
             });
 //    .formValidation({
@@ -99,10 +117,52 @@ var planmodel = function () {
 }
 var myplanview = function () {
     var self = new planmodel();
+    var planurls = urls.plan;
     self.showaddplan = function () {
         $('#tmp_addplan').hide();
         $('#form_plan').show();
         //$('#form_plan').toggle();
+    }
+    self.showaddstep = function (plan) {
+        //$(this).hide();
+        //$(this).next().show();
+        $('#tmp_addstep_' + plan.id).hide();
+        $('#form_step_' + plan.id).show();
+    }
+    self.addstep = function () {
+        var planid = this.id;
+        var stepform = $("#form_step_" + planid);
+        if (stepform.valid()) {
+            var data = stepform.serializeForm();
+            var planid = data.plan_id;
+            var plans = self.plans();
+            for (var i = 0; i < plans.length; i++) {
+                if (plans[i].id == planid) {
+                    data.idx = plans[i].steps.length;
+                    break;
+                }
+            }
+            $.post(planurls.addstepurl, data, function (result) {
+                if (result.result == 'success') {
+                    //alert('添加成功');
+                    var step = result.step;
+                    var match = ko.utils.arrayFirst(self.plans(), function (item) {
+                        return step.plan_id === item.id;
+                    });
+                    if (match) {
+                        match.steps.push(step);
+                    }
+                    self.hideaddstep(step.plan_id);
+                    //self.plans.push
+                } else {
+                    alert(result.message);
+                }
+            });
+        }
+    }
+    self.hideaddstep = function (plan_id) {
+        $('#tmp_addstep_' + plan_id).show();
+        $('#form_step_' + plan_id).hide();
     }
     return self;
 }

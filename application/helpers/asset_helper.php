@@ -205,6 +205,19 @@ if (!function_exists('asset_path')) {
     }
 
 }
+
+if (!function_exists('redirect_back')) {
+
+    function redirect_back($errors= array()) {
+        //get an instance of CI so we can access our configuration
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        $_SESSION['flash_data'] = $errors;
+        exit;
+    }
+
+}
+
+
 /**
  * Get CSS Path
  *

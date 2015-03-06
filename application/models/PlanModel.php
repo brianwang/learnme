@@ -30,7 +30,8 @@ class PlanModel extends MY_Model {
             foreach ($tags as $tag) {
                 array_push($tagsdata, array(
                     'plan_id' => $insert_id,
-                    'tag' => $tag
+                    'tag' => $tag,
+                    'uid' => $data['author']
                 ));
             }
             $this->_database->insert_batch('plan_tags', $tagsdata);
@@ -65,10 +66,22 @@ class PlanModel extends MY_Model {
         return $result;
     }
 
+    public $after_get = array('after_get');
+    public $timearr = array('month' => '月计划', 'week' => '周计划', 'year' => '年计划', 'long' => '长期计划');
+
+    public function after_get($plan) {
+        $plan->type = $this->timearr[$plan->type];
+        return $plan;
+    }
+
     public function getbyuid($uid = '') {
         $result = array();
         if ($uid == '')
             return $result;
+        //$this->_database->select('p.*');
+        //$this->_database->from('plans as p');
+        //$this->_database->join('plans_steps', 'plans_steps.plan_id = p.id');
+        //$plans = $this->_database->get_where('plans', array('author'=>$uid))->join('plans_steps');
         $plans = $this->get_many_by(array('author' => $uid));
         $result = $plans;
         return $result;

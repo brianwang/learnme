@@ -56,8 +56,10 @@ class CI_Smarty extends Smarty {
      * @return	string
      */
     function view($template, $data = array(), $return = FALSE) {
-        foreach ($data as $key => $val) {
-            $this->assign($key, $val);
+        if (is_array($data)) {
+            foreach ($data as $key => $val) {
+                $this->assign($key, $val);
+            }
         }
 
         if ($return == FALSE) {

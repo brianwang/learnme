@@ -29,14 +29,18 @@ class Page extends BaseController {
         $this->smarty->view('myplan.tpl');
     }
 
-    
-     public function login() {
+    public function login() {
         $this->smarty->view('login.tpl');
     }
-    
+
     public function register() {
-        $this->smarty->view('register.tpl');
+        $sessiontime = base64_encode(time());
+        $errors = isset($_SESSION['flash_data']) ? $_SESSION['flash_data'] : '';
+        $data = array('errors' => $errors, 'sessiontime' => $sessiontime);
+        $this->smarty->view('register.tpl', $data);
+        unset($_SESSION['flash_data']);
     }
+
 }
 
 /* End of file welcome.php */

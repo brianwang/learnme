@@ -1,0 +1,28 @@
+{
+  "name": "jquery-dragger",
+  "version": "1.4.1",
+  "description": "Make anything draggable for mobile and desktop width jQuery",
+  "main": "dist/jquery.dragger.common.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cuth/jquery.dragger.git"
+  },
+  "keywords": [
+    "drag",
+    "swipe"
+  ],
+  "author": "Jonathan Cuthbert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cuth/jquery.dragger/issues"
+  },
+  "homepage": "https://github.com/cuth/jquery.dragger",
+  "dependencies": {
+    "jquery": ">=1.7.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-rename": "^1.2.0",
+    "gulp-insert": "^0.3.0"
+  }
+}
