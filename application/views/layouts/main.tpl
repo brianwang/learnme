@@ -9,11 +9,7 @@
         <link rel="icon" href="/favicon.ico">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="{base_url('/assets/bower_components/bootstrap/dist/css/bootstrap.css')}">
-
         {bower('jquery/dist/jquery.js')}
-
-
-
         <!-- Optional theme -->
         <script src="{base_url('/assets/js/ie-emulation-modes-warning.js')}"></script>
         <!-- Latest compiled and minified JavaScript -->
@@ -26,7 +22,6 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
         <title>{$g.sitename}</title>
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
          <!--[if lt IE 9]><script src="{base_url('/assets/js/ie-emulation-modes-warning.js')}"></script>
@@ -40,7 +35,6 @@
         {bower('jquery-serializeForm/dist/jquery-serializeForm.js')}
         {bower('knockout/dist/knockout.debug.js')}
         <script src="{site_url('/remotejs/config')}"></script>
-
     {block name=header}{/block}
 </head>
 <body>
@@ -55,8 +49,14 @@
                     <li><a href="{site_url('/page/dashboard')}">我的任务</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{site_url('/page/setting')}">设置</a></li>
-                    <li><a href="{site_url('/page/profile')}">个人中心</a></li>
+
+                    {if isset($smarty.session.user)}
+                   
+                    <li><a href="{site_url('/page/profile')}">{$smarty.session.user.email|default: ''}</a></li>
+                    {else}
+                    <li><a href="{site_url('/page/login')}">登录</a></li>
+                    <li><a href="{site_url('/page/register')}">注册</a></li>
+                    {/if}
                 </ul>
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">

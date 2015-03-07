@@ -31,7 +31,7 @@ var planmodel = function () {
                     if (result.result == 'success') {
                         //alert('添加成功');
                         var plan = result.plan;
-                        plan.steps =  ko.observableArray([]);
+                        plan.steps = ko.observableArray([]);
                         self.plans.push(plan);
                         self.close();
                     } else {
@@ -68,33 +68,15 @@ var planmodel = function () {
 
     }
 
-    
+
     self.getbyuid = function (uid) {
         //$.get()
     }
+    self.updateplan = function(plan){
+        $("#form")
+        
+    }
 
-    $('#form_plan')
-            .validate({
-                rules: {
-                    title: "required",
-                    //tags: {require_from_tags: true},
-                    type: {required: true}
-                },
-                messages: {
-                    title: "请输入标题",
-                    //tags: {require_from_tags: "请写入至少一个标签"},
-                    type: {required: "请选择一个类型"}
-                }
-            });
-    $('#form_step')
-            .validate({
-                rules: {
-                    title: "required"
-                },
-                messages: {
-                    title: "请输入标题"
-                }
-            });
 //    .formValidation({
 //        framework: 'bootstrap',
 //        excluded: ':disabled',
@@ -166,8 +148,32 @@ var myplanview = function () {
     }
     return self;
 }
+$(document).ready(function () {
+    $('#form_plan')
+            .validate({
+                rules: {
+                    title: "required",
+                    //tags: {require_from_tags: true},
+                    type: {required: true}
+                },
+                messages: {
+                    title: "请输入标题",
+                    //tags: {require_from_tags: "请写入至少一个标签"},
+                    type: {required: "请选择一个类型"}
+                }
+            });
+    $('#form_step')
+            .validate({
+                rules: {
+                    title: "required"
+                },
+                messages: {
+                    title: "请输入标题"
+                }
+            });
+    var myplanobj = new myplanview();
+    ko.applyBindings(myplanobj, document.getElementById("addplan"));
+});
 
-var myplanobj = new myplanview();
-ko.applyBindings(myplanobj, document.getElementById("addplan"));
 //var myplanmodelobj = new myplanmodel();
 //ko.applyBindings(myplanmodelobj);

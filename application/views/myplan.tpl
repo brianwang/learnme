@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="{base_url('/assets/bower_components/form.validation/dist/css/bootstrapValidator.css')}">
     {bower('form.validation/dist/js/bootstrapValidator.js')}
     {js('myplan.js')}
+    <script type="text/html" id="seasonTemplate">
+        <li>
+            <strong data-bind="text: name"></strong>
+            <ul data-bind="template: { name: 'monthTemplate', foreach: months, as: 'month' }"></ul>
+        </li>
+    </script>
+    <script type="text/html" id="monthTemplate">
+        <li>
+            <span data-bind="text: month"></span>
+            is in
+            <span data-bind="text: season.name"></span>
+        </li>
+    </script>
+
+
 {/block}
 {block name=body}
     <div style=" border: 1px solid #ccc;box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);padding: 20px; border-radius: 5px;" 
@@ -24,7 +39,10 @@
                             <span data-bind="text: $data.title" class="col-md-8"></span></a>
                         <span  data-bind="text: $data.type" class="col-md-2"></span>
                         <span class="col-md-2">
-                            <a data-bind="click: $parent.showaddstep" title="添加计划步骤">
+                            <a title="添加计划步骤">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                            </a>                          
+                            <a data-bind="click: $parent.updateplan" title="添加计划步骤">
                                 <span class="glyphicon glyphicon-th-list"></span>
                             </a>                          
                         </span>

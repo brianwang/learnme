@@ -30,7 +30,11 @@ class Page extends BaseController {
     }
 
     public function login() {
-        $this->smarty->view('login.tpl');
+        $sessiontime = base64_encode(time());
+        $errors = isset($_SESSION['flash_data']) ? $_SESSION['flash_data'] : '';
+        $data = array('errors' => $errors, 'sessiontime' => $sessiontime);
+        $this->smarty->view('login.tpl', $data);
+        unset($_SESSION['flash_data']);
     }
 
     public function register() {
@@ -39,6 +43,11 @@ class Page extends BaseController {
         $data = array('errors' => $errors, 'sessiontime' => $sessiontime);
         $this->smarty->view('register.tpl', $data);
         unset($_SESSION['flash_data']);
+    }
+
+    public function profile() {
+        $user = $_SESSION['user'];
+        $this->smarty->view('profile.tpl', array('user' => $user));
     }
 
 }
