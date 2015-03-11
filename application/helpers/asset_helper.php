@@ -60,6 +60,7 @@ if (!function_exists('asset_url')) {
     }
 
 }
+
 /**
  * Get css URL
  *

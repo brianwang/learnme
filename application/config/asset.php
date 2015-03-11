@@ -51,10 +51,10 @@ if (!defined('BASEPATH'))
   |
  */
 $config['asset_path'] = 'assets/';
-$config['css_path'] = 'assets/css/';
+$config['css_path'] = 'assets/dashgum/css/';
 $config['download_path'] = 'assets/download/';
 $config['less_path'] = 'assets/less/';
-$config['js_path'] = 'assets/js/';
+$config['js_path'] = 'assets/dashgum/js/';
 $config['bower_path'] = 'assets/bower_components/';
 $config['img_path'] = 'assets/img/';
 $config['swf_path'] = 'assets/swf/';

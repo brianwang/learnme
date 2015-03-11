@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}">
     <link rel="stylesheet" href="{base_url('/assets/bower_components/form.validation/dist/css/bootstrapValidator.css')}">
     {bower('form.validation/dist/js/bootstrapValidator.js')}
-    {js('myplan.js')}
+    {js('../../js/myplan.js')}
     <script type="text/html" id="seasonTemplate">
         <li>
             <strong data-bind="text: name"></strong>

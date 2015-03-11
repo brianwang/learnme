@@ -7,7 +7,7 @@ class Page extends BaseController {
 
     //首页
     public function index() {
-        $this->smarty->view('plans.tpl');
+        $this->smarty->view('index.tpl');
     }
 
     //首页
