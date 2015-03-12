@@ -30,10 +30,9 @@ class Page extends BaseController {
     }
 
     public function login() {
-        $sessiontime = base64_encode(time());
-        $errors = isset($_SESSION['flash_data']) ? $_SESSION['flash_data'] : '';
-        $data = array('errors' => $errors, 'sessiontime' => $sessiontime);
-        $this->smarty->view('login.tpl', $data);
+        $sessiontime = base64_encode(time());        
+        $data = array('sessiontime' => $sessiontime);
+        $this->smarty->view('login.tpl', $data); 
         unset($_SESSION['flash_data']);
     }
 

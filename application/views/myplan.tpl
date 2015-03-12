@@ -24,28 +24,74 @@
 
 {/block}
 {block name=body}
+    <h3><i class="fa fa-angle-right"></i> To-Do Lists</h3>
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="white-panel pn">
+                <div class="panel-heading">
+                    <div class="pull-left"><h5><i class="fa fa-tasks"></i> Todo List - Basic Style</h5></div>
+                    <br>
+                </div>
+                <div class="custom-check goleft mt">
+                    <table id="todo" class="table table-hover custom-check">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="check"><input type="checkbox" class="checked"></span>
+                                    <a href="index.html#">Send invoice</a>
+                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="check"><input type="checkbox" class="checked"></span>
+                                    <a href="index.html#">Check messages</a>
+                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="check"><input type="checkbox" class="checked"></span>
+                                    <a href="index.html#">Pay bills</a>
+                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="check"><input type="checkbox" class="checked"></span>
+                                    <a href="index.html#">Schedule site </a>
+                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!-- /table-responsive -->
+            </div><!--/ White-panel -->
+        </div><!-- --/col-md-12 ---->
+    </div>
+
     <div style=" border: 1px solid #ccc;box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);padding: 20px; border-radius: 5px;" 
          id="addplan">
         <div id="planlist" data-bind="foreach: plans" >
             <div class="media-list">
-                <div class="media-left media-middle" style="border-right: solid 1px;">
-                    <a data-bind="click: $parent.finish" title="该计划" class="media-object">
-                        <span class="glyphicon glyphicon-ok"></span>                            
-                    </a>
-                </div>
                 <div class="media-body row">
                     <div class="panel" style="height: 35px;">
-                        <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id }">
-                            <span data-bind="text: $data.title" class="col-md-8"></span></a>
+                        <div class="col-md-8">
+                            <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id },click: $parent.updateplan">
+                                <span data-bind="text: $data.title"></span>
+                            </a>
+                            <div data-bind="attr:{ id: 'input_'+$data.id},visible: $('input_'+$data.id).before().is(':visible')">
+                                <input type="text" name="title" value="" data-bind="attr:{ value: $data.title}">
+                                <a class="btn btn-default" data-bind="click: $parent.save">保存</a>
+                            </div>
+                        </div>
                         <span  data-bind="text: $data.type" class="col-md-2"></span>
                         <span class="col-md-2">
-                            <a title="添加计划步骤">
-                                <span class="glyphicon glyphicon-th-list"></span>
-                            </a>                          
-                            <a data-bind="click: $parent.updateplan" title="添加计划步骤">
-                                <span class="glyphicon glyphicon-th-list"></span>
-                            </a>                          
+                            <a data-bind="click: $parent.finish" title="该计划" class="media-object">
+                                <span class="glyphicon glyphicon-ok"></span>                            
+                            </a>                                                 
                         </span>
+                        <div data-bind="attr: { id: 'updateplan_'+$data.id}"></div>
                     </div>
                     <div>
                         <span data-bind="text: console.log($data.steps())"></span>
@@ -59,7 +105,8 @@
                         <div class="col-md-1 col-md-push-5" style="font-size: 1.5em;">
                             <a data-bind="click: $parent.showaddstep" title="添加计划步骤" data-bind=" click: $data.parnent.showaddstep">
                                 <span class="glyphicon glyphicon-plus-sign"></span>
-                            </a>     
+                            </a>
+
                         </div>
                     </div>
                     <div>

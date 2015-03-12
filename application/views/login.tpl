@@ -29,16 +29,20 @@
     </div>*}
     <div id="login-page">
         <div class="container">
-            <div class="alert alert-error" role="alert">
-                {$error|default: ''}
-            </div>
+
             <form class="form-login" id="form_register" action="{site_url('/auth/login')}" method='POST'>
+
                 <input type='hidden' name='sessiontime' value='{$sessiontime}'/>
                 <h2 class="form-login-heading">现在登录</h2>
+                {if $smarty.session.flash_data|default: false}
+                    <div class="alert alert-danger" >
+                        {$smarty.session.flash_data}
+                    </div>
+                {/if}
                 <div class="login-wrap">
                     <input type="text" class="form-control" placeholder="邮箱/QQ/用户名" autofocus name="email">
                     <br>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" name="password">
                     <label class="checkbox">
                         <span class="pull-right">
                             <a data-toggle="modal" href="login.html#myModal"> 忘记密码?</a>

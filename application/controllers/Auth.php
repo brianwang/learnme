@@ -26,6 +26,7 @@ class Auth extends BaseController {
             if (!empty($user)) {
                 if (md5($userdata['password']) == $user['password']) {
                     $_SESSION['user'] = $user;
+                    unset($_SESSION['flash_data']);
                     $this->smarty->view('register_success.tpl', array('frompage' => '登录'));
                 } else {
                     $error = '密码错误';
@@ -49,7 +50,7 @@ class Auth extends BaseController {
             $duration = time() - $lasttime;
             if ($duration <= 5) {
                 $error = '不要重复注册';
-                redirect_back($errors);
+                redirect_back($error);
             }
         }
         unset($_SESSION['user']);
@@ -64,12 +65,18 @@ class Auth extends BaseController {
                 $this->smarty->view('register_success.tpl');
             } else {
                 $error = '确认密码不一致';
-                redirect_back($errors);
+                redirect_back($error);
             }
         } else {
             $errors = validation_errors();
             redirect_back($errors);
         }
+    }
+
+    function logout() {
+        unset($_SESSION['user']);
+        unset($_SESSION['flash_data']);
+        redirect('/');
     }
 
 }

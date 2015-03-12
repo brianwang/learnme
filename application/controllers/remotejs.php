@@ -18,12 +18,13 @@ class Remotejs extends BaseController {
     public function config() {
         $this->output->set_content_type('js');
         $output = 'var urls = ' . json_encode(array(
-                    'plan' => array('addurl' => base_url('/plan/add'),
-                        'rmurl' => base_url('/plan/remove'),
-                        'baseurl' => base_url('/plan/'),
-                        'addstepurl' => base_url('step/add')),
-                    'step_url' => base_url('/step')
-                        ), JSON_FORCE_OBJECT | JSON_UNESCAPED_SLASHES) . ';';
+        'plan' => array('addurl' => base_url('/plan/add'),
+        'rmurl' => base_url('/plan/remove'),
+        'baseurl' => base_url('/plan/'),
+        'updateurl' => base_url('plan/update'),
+        'addstepurl' => base_url('step/add')),
+        'step_url' => base_url('/step')
+        ), JSON_FORCE_OBJECT | JSON_UNESCAPED_SLASHES) . ';';
         $this->load->model('PlanModel');
         $this->load->model('StepModel');
         $uid = isset($_SESSION['uid']) ? $_SESSION['uid'] : '33';

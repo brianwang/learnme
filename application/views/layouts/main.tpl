@@ -156,7 +156,7 @@
                 <div class="top-menu">
                     <ul class="nav pull-right top-menu">
                         <li><a href="{site_url('/page/profile')}" class='logout'>{$smarty.session.user.email|default: ''}</a></li>
-                        <li><a class="logout" href="login.html">Logout</a></li>
+                        <li><a class="logout" href="{site_url('/auth/logout')}">Logout</a></li>
                     </ul>
                 </div>
             {else}
