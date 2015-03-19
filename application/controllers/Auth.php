@@ -59,10 +59,16 @@ class Auth extends BaseController {
             if ($userdata['password'] == $userdata['confirm_password']) {
                 $this->load->model('UserModel');
                 unset($userdata['confirm_password']);
-                $userdata['password'] = md5($userdata['password']);
-                $this->UserModel->insert($userdata, TRUE);
-                $_SESSION['user'] = $userdata;
-                $this->smarty->view('register_success.tpl');
+                $user = $this->UserModel->get_where(array('email' => $userdata['email']));
+                if ($user == null) {
+                    $userdata['password'] = md5($userdata['password']);
+                    $this->UserModel->insert($userdata, TRUE);
+                    $_SESSION['user'] = $userdata;
+                    $this->smarty->view('register_success.tpl');
+                } else {
+                    $error = '用户已存在';
+                    redirect_back($error);
+                }
             } else {
                 $error = '确认密码不一致';
                 redirect_back($error);
