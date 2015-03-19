@@ -13,7 +13,7 @@ class Auth extends BaseController {
         if ($sessiontime != '') {
             $lasttime = base64_decode($sessiontime);
             $duration = time() - $lasttime;
-            if ($duration <= 5) {
+            if ($duration <= 3) {
                 $error = '不要重复登录';
                 redirect_back($error);
             }

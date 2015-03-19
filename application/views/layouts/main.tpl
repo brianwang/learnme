@@ -160,12 +160,14 @@
                     </ul>
                 </div>
             {else}
-                <div class="top-menu">
-                    <ul class="nav pull-right top-menu">
-                        <li><a href="{site_url('/page/register')}" class='logout'>注册</a></li>
-                        <li><a href="{site_url('/page/login')}" class='logout'>登录</a></li>
-                    </ul>
-                </div>
+                {if cur_uri() != '/page/register' &&  cur_uri() != '/page/login'}
+                    <div class="top-menu">
+                        <ul class="nav pull-right top-menu">
+                            <li><a href="{site_url('/page/register')}" class='logout'>注册</a></li>
+                            <li><a href="{site_url('/page/login')}" class='logout'>登录</a></li>
+                        </ul>
+                    </div>
+                {/if}
             {/if}
         </header>
         <!--header end-->

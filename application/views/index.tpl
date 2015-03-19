@@ -44,8 +44,11 @@
                         <li><a href="#showcase" class="smothScroll">特点</a></li>
                         <li><a href="#customers" class="smothScroll">典型客户</a></li>
                         <li><a href="#contact" class="smothScroll">联系我们</a></li>
+                        <li style="position:absolute; right: 50px;"><a href="{site_url('/page/register')}" class="smothscroll">注册</a></li>
+                        <li style="position:absolute; right: 0px;"><a href="{site_url('/page/Login')}" class="smothscroll">登录</a></li>
                     </ul>
-                </div><!--/.nav-collapse -->
+                </div>
+                <!--/.nav-collapse -->
             </div>
         </div>
 

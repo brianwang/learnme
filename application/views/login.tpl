@@ -53,14 +53,14 @@
                     <hr>
 
                     <div class="login-social-link centered">
-                        <p>or you can sign in via your social network</p>
-                        <button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
-                        <button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
+                        <p>通过社交网络登录</p>
+                        <button class="btn btn-facebook" type="submit"><i class="fa fa-qq"></i> QQ</button>
+                        <button class="btn btn-twitter" type="submit"><i class="fa fa-weibo"></i> 微博</button>
                     </div>
                     <div class="registration">
-                        Don't have an account yet?<br/>
-                        <a class="" href="#">
-                            Create an account
+                        还没注册?<br/>
+                        <a class="" href="{site_url('/page/register')}">
+                            注册帐号
                         </a>
                     </div>
 

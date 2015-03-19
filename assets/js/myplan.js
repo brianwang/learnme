@@ -72,11 +72,31 @@ var planmodel = function () {
     self.getbyuid = function (uid) {
         //$.get()
     }
-    self.updateplan = function(plan){
-        $("#form")
-        
+    self.updateplan = function (plan) {
+        //$('#updateplan_'+plan.id).append()
+        var inputid = '#input_' + plan.id;
+        $(inputid).toggle();
+        $(inputid).prev().hide();
+        //var title = $('#input_'+plan.id).value;
     }
 
+    self.saveplan = function (plan) {
+        var title = $('#input_' + plan.id + ' input').val();
+        $.post(planurls.updateurl, {id: plan.id, title: title}, function (result) {
+            if (result.result == 'success') {
+                //alert('添加成功');
+                var newplan = result.plan;
+                var idx = self.plans.indexOf(plan);
+                self.plans.splice(idx, 1);
+                slef.plans.push(newplan);
+                //plan.steps = ko.observableArray([]);
+                //self.plans.push(plan);
+                self.close();
+            } else {
+                alert(result.message);
+            }
+        });
+    }
 //    .formValidation({
 //        framework: 'bootstrap',
 //        excluded: ':disabled',
