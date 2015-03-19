@@ -70,7 +70,17 @@ class PlanModel extends MY_Model {
     public $timearr = array('month' => '月计划', 'week' => '周计划', 'year' => '年计划', 'long' => '长期计划');
 
     public function after_get($plan) {
-        $plan->type = $this->timearr[$plan->type];
+        //$t = $this->timearr['week'];
+        if (is_object($plan)) {
+            $t = $plan->type;
+            $type = $this->timearr[$t];
+            $plan->type = $type;
+        }
+        if (is_array($plan)) {
+            $t = $plan['type'];
+            $type = $this->timearr[$t];
+            $plan['type'] = $type;
+        }
         return $plan;
     }
 

@@ -34,6 +34,18 @@ $config = array(
             'rules' => 'required'
         ),
     ),
+    'plan_updatevalid' => array(
+        array(
+            'field' => 'title',
+            'label' => '计划名称',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'id',
+            'label' => '计划id',
+            'rules' => 'required'
+        )
+    ),
     'step_valid' => array(
         array(
             'field' => 'plan_id',

@@ -5,13 +5,41 @@ var stepmodel = function (title, idx) {
     return self;
 }
 
-var planmodel = function () {
+var planmodel = function (plan) {
+    var self = this;
+    ///self.prototype = plan;
+    for(var key in plan){
+        self[key] = plan[key];
+    }
+    self.title = ko.observable(plan.title);
+
+//    .formValidation({
+//        framework: 'bootstrap',
+//        excluded: ':disabled',
+//        icon: {
+//            valid: 'glyphicon glyphicon-ok',
+//            invalid: 'glyphicon glyphicon-remove',
+//            validating: 'glyphicon glyphicon-refresh'
+//        },
+//        fields: {
+//            tags: {
+//                validators: {
+//                    notEmpty: {
+//                        message: '请输入最少一个标签'
+//                    }
+//                }
+//            }
+//        }
+//    });
+    return self;
+}
+var myplanview = function () {
     var self = this;
     var planurls = urls.plan;
-    self.baseurl = urls.plan.baseurl;
+    self.baseurl = planurls.baseurl;
     self.plans = ko.observableArray([]);
     for (var i = 0; i < gl.plans.length; i++) {
-        var plan = gl.plans[i];
+        var plan = new planmodel(gl.plans[i]);
         var steps = plan.steps.slice(0);
         plan.steps = ko.observableArray([]);
         for (var j = 0; j < steps.length; j++) {
@@ -20,6 +48,53 @@ var planmodel = function () {
         }
         self.plans.push(plan);
     }
+    self.showaddplan = function () {
+        $('#tmp_addplan').hide();
+        $('#form_plan').show();
+        //$('#form_plan').toggle();
+    }
+    self.showaddstep = function (plan) {
+        //$(this).hide();
+        //$(this).next().show();
+        $('#tmp_addstep_' + plan.id).hide();
+        $('#form_step_' + plan.id).show();
+    }
+    self.addstep = function () {
+        var planid = this.id;
+        var stepform = $("#form_step_" + planid);
+        if (stepform.valid()) {
+            var data = stepform.serializeForm();
+            var planid = data.plan_id;
+            var plans = self.plans();
+            for (var i = 0; i < plans.length; i++) {
+                if (plans[i].id == planid) {
+                    data.idx = plans[i].steps.length;
+                    break;
+                }
+            }
+            $.post(planurls.addstepurl, data, function (result) {
+                if (result.result == 'success') {
+                    //alert('添加成功');
+                    var step = result.step;
+                    var match = ko.utils.arrayFirst(self.plans(), function (item) {
+                        return step.plan_id === item.id;
+                    });
+                    if (match) {
+                        match.steps.push(step);
+                    }
+                    self.hideaddstep(step.plan_id);
+                    //self.plans.push
+                } else {
+                    alert(result.message);
+                }
+            });
+        }
+    }
+    self.hideaddstep = function (plan_id) {
+        $('#tmp_addstep_' + plan_id).show();
+        $('#form_step_' + plan_id).hide();
+    }
+
     //self.plans = ko.observableArray(gl.plans);
     //添加计划
     self.add = function () {
@@ -87,84 +162,18 @@ var planmodel = function () {
                 //alert('添加成功');
                 var newplan = result.plan;
                 var idx = self.plans.indexOf(plan);
-                self.plans.splice(idx, 1);
-                slef.plans.push(newplan);
-                //plan.steps = ko.observableArray([]);
-                //self.plans.push(plan);
-                self.close();
+                self.plans()[idx].title(newplan.title);
+                self.closesave(plan);
             } else {
                 alert(result.message);
             }
         });
     }
-//    .formValidation({
-//        framework: 'bootstrap',
-//        excluded: ':disabled',
-//        icon: {
-//            valid: 'glyphicon glyphicon-ok',
-//            invalid: 'glyphicon glyphicon-remove',
-//            validating: 'glyphicon glyphicon-refresh'
-//        },
-//        fields: {
-//            tags: {
-//                validators: {
-//                    notEmpty: {
-//                        message: '请输入最少一个标签'
-//                    }
-//                }
-//            }
-//        }
-//    });
-    return self;
-}
-var myplanview = function () {
-    var self = new planmodel();
-    var planurls = urls.plan;
-    self.showaddplan = function () {
-        $('#tmp_addplan').hide();
-        $('#form_plan').show();
-        //$('#form_plan').toggle();
-    }
-    self.showaddstep = function (plan) {
-        //$(this).hide();
-        //$(this).next().show();
-        $('#tmp_addstep_' + plan.id).hide();
-        $('#form_step_' + plan.id).show();
-    }
-    self.addstep = function () {
-        var planid = this.id;
-        var stepform = $("#form_step_" + planid);
-        if (stepform.valid()) {
-            var data = stepform.serializeForm();
-            var planid = data.plan_id;
-            var plans = self.plans();
-            for (var i = 0; i < plans.length; i++) {
-                if (plans[i].id == planid) {
-                    data.idx = plans[i].steps.length;
-                    break;
-                }
-            }
-            $.post(planurls.addstepurl, data, function (result) {
-                if (result.result == 'success') {
-                    //alert('添加成功');
-                    var step = result.step;
-                    var match = ko.utils.arrayFirst(self.plans(), function (item) {
-                        return step.plan_id === item.id;
-                    });
-                    if (match) {
-                        match.steps.push(step);
-                    }
-                    self.hideaddstep(step.plan_id);
-                    //self.plans.push
-                } else {
-                    alert(result.message);
-                }
-            });
-        }
-    }
-    self.hideaddstep = function (plan_id) {
-        $('#tmp_addstep_' + plan_id).show();
-        $('#form_step_' + plan_id).hide();
+
+    self.closesave = function (plan) {
+        var inputid = '#input_' + plan.id;
+        $(inputid).prev().show();
+        $(inputid).toggle();
     }
     return self;
 }

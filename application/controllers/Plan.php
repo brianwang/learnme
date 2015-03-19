@@ -32,7 +32,7 @@ class Plan extends ModelController {
                     $data['duration'] = -1;
                 }
                 $id = $this->{$this->modelclass}->insert($data, $tags, true);
-                $data['id'] =$id;
+                $data['id'] = $id;
                 $this->output->json(array('result' => 'success', 'plan' => $data));
             } else {
                 $errors = validation_errors();
@@ -41,7 +41,36 @@ class Plan extends ModelController {
         } else {
             $this->output->json(array('error' => '必须使用post'));
         }
-    }    
-    
+    }
+
+    public function update() {
+        if ($this->input->is_post()) {
+            if ($this->modelname == '') {
+                show_error('$modelname is wrong');
+            } else {
+                $validatename = strtolower($this->modelname) . '_updatevalid';
+                if ($this->form_validation->run($validatename) == TRUE) {
+                    $data = $this->input->post();
+                    $pk = isset($data['id']) ? $data['id'] : '';
+                    if ($pk === '') {
+                        $this->output->json(array('error' => 'No pk id'));
+                    } else {
+                        try {
+                            $this->{$this->modelclass}->update($pk, $data, TRUE);
+                            $plan = $this->{$this->modelclass}->as_array()->get_by(array('id' => $pk));
+                            $this->output->json(array('result' => 'success', 'plan' => $plan));
+                        } catch (Exception $err) {
+                            $this->output->json($err);
+                        }
+                    }
+                } else {
+                    $errors = validation_errors();
+                    show_error($errors);
+                }
+            }
+        } else {
+            $this->output->json(array('error' => '必须使用post'));
+        }
+    }
 
 }

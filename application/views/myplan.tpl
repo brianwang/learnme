@@ -20,8 +20,6 @@
             <span data-bind="text: season.name"></span>
         </li>
     </script>
-
-
 {/block}
 {block name=body}
     <h3><i class="fa fa-angle-right"></i> To-Do Lists</h3>
@@ -82,7 +80,8 @@
                             </a>
                             <div data-bind="attr:{ id: 'input_'+$data.id},visible: $('input_'+$data.id).before().is(':visible')">
                                 <input type="text" name="title" value="" data-bind="attr:{ value: $data.title}">
-                                <a class="btn btn-default" data-bind="click: $parent.save">保存</a>
+                                <a class="btn btn-default" data-bind="click: $parent.saveplan">保存</a>
+                                <a class="btn btn-info" data-bind="click: $parent.closesave">关闭</a>
                             </div>
                         </div>
                         <span  data-bind="text: $data.type" class="col-md-2"></span>
@@ -115,6 +114,7 @@
                             <div class="form-inline">
                                 <input type="text" name="title" id="content" placeholder="任务内容" class="form-control">
                                 <a class="btn btn-info" data-bind="click: $parent.addstep">保存</a>
+                                
                             </div>
                         </form>
                     </div>

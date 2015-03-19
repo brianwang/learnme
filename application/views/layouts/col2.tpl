@@ -97,7 +97,7 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-            <div class="row">
+            <div class="row-fluid">
             {block name=body}{/block}
         </div>
     </section>

@@ -78,7 +78,7 @@ class ModelController extends BaseController {
             if ($this->modelname == '') {
                 show_error('$modelname is wrong');
             } else {
-                $validatename = $this->modelname . '_valid';
+                $validatename = strtolower($this->modelname . '_valid');
                 if ($this->form_validation->run($validatename) == TRUE) {
                     $data = $this->input->post();
                     $pk = isset($data['id']) ? $data['id'] : '';
