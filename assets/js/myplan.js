@@ -8,7 +8,7 @@ var stepmodel = function (title, idx) {
 var planmodel = function (plan) {
     var self = this;
     ///self.prototype = plan;
-    for(var key in plan){
+    for (var key in plan) {
         self[key] = plan[key];
     }
     self.title = ko.observable(plan.title);
@@ -57,7 +57,7 @@ var myplanview = function () {
         //$(this).hide();
         //$(this).next().show();
         $('#tmp_addstep_' + plan.id).hide();
-        $('#form_step_' + plan.id).show();
+        $('#form_step_' + plan.id).parent().show();
     }
     self.addstep = function () {
         var planid = this.id;
@@ -82,7 +82,7 @@ var myplanview = function () {
                     if (match) {
                         match.steps.push(step);
                     }
-                    self.hideaddstep(step.plan_id);
+                    self.hideaddstep({id: step.plan_id});
                     //self.plans.push
                 } else {
                     alert(result.message);
@@ -90,9 +90,9 @@ var myplanview = function () {
             });
         }
     }
-    self.hideaddstep = function (plan_id) {
-        $('#tmp_addstep_' + plan_id).show();
-        $('#form_step_' + plan_id).hide();
+    self.hideaddstep = function (plan) {
+        $('#tmp_addstep_' + plan.id).show();
+        $('#form_step_' + plan.id).parent().hide();
     }
 
     //self.plans = ko.observableArray(gl.plans);
@@ -141,6 +141,19 @@ var myplanview = function () {
     }
     self.get = function () {
 
+    }
+
+    self.showsteps = function (plan, event) {
+        var stepid = '#steps_' + plan.id;
+//        var tar = $(event.target);
+//        if (tar.hasClass("glyphicon-chevron-up")) {
+//            tar.removeClass('glyphicon-chevron-up');
+//            tar.addClass('glyphicon-chevron-down');
+//        } else {
+//            tar.removeClass('glyphicon-chevron-down');
+//            tar.addClass('glyphicon-chevron-up');
+//        }
+        $(stepid).toggle();
     }
 
 
