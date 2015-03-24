@@ -18,10 +18,14 @@ class Step extends ModelController {
             $validatename = strtolower($this->modelname . '_valid');
             if ($this->form_validation->run($validatename) == TRUE) {
                 $data = $this->input->post();
-                $data['uid'] = isset($_SESSION['uid']) ? $_SESSION['uid'] : '33';
-                $id = $this->{$this->modelclass}->insert($data, true);
-                $data['id'] = $id;
-                $this->output->json(array('result' => 'success', 'step' => $data));
+                if (!isset($_SESSION['user'])) {
+                    $this->output->json(array('error' => '请登录'));
+                } else {
+                    $data['uid'] = isset($_SESSION['user']) ? $_SESSION['user']['id'] : '';
+                    $id = $this->{$this->modelclass}->insert($data, true);
+                    $data['id'] = $id;
+                    $this->output->json(array('result' => 'success', 'step' => $data));
+                }
             } else {
                 $errors = validation_errors();
                 $this->output->json($errors);

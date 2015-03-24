@@ -43,6 +43,9 @@
             <!-- ko foreach: plans -->
             <div class="list-group-item">
                 <div class="row">
+                    <a data-bind="click: $parent.finish" title="完成计划" class="col-md-1">
+                        <h3 class="glyphicon glyphicon-ok"></h3>                            
+                    </a>
                     <div class="col-md-10">
                         <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id },click: $parent.updateplan">
                             <h3 data-bind="text: $data.title"></h3>
@@ -53,9 +56,7 @@
                             <a class="btn btn-info" data-bind="click: $parent.closesave">关闭</a>
                         </div>
                     </div>
-                    <a data-bind="click: $parent.finish" title="该计划" class="col-md-1">
-                        <h3 class="glyphicon glyphicon-ok"></h3>                            
-                    </a>
+
                     <a data-bind="click: $parent.showsteps" title="展开步骤" class="col-md-1">
                         <h3 class="glyphicon glyphicon-list"></h3>                            
                     </a>                                                 
@@ -67,7 +68,13 @@
                 <ul class="list-group" >
                     <!-- ko foreach: { data: $data.steps, as: 'step' }-->
                     <li class="list-group-item">
-                        <span data-bind="text: step.title"></span>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <span data-bind="text: step.title"></span></div>
+                            <div class="col-md-2">
+                                <span data-bind="text: step.create_time"></span>
+                            </div>
+                        </div>
                     </li>
                     <!-- /ko -->
                     <li class="list-group-item" data-bind="attr: { id: 'tmp_addstep_'+$data.id }" style="font-size: 1.5em;">
@@ -89,13 +96,17 @@
             </div>
             <!-- /ko -->
             <div id="tmp_addplan" class="list-group-item">
-                <a data-bind="click: showaddplan">
-                    <h3><i class="glyphicon glyphicon-plus" aria-hidden="true" ></i>添加新的学习计划</h3>
-                </a>
+                <div class="row">
+                    <a data-bind="click: showaddplan" class="row">
+                        <h3><i class="glyphicon glyphicon-plus col-md-1" aria-hidden="true" style="font-size: 1.5em;" ></i>
+                            <span class="col-md-10">
+                                添加新的学习计划</span></h3>
+                    </a>
+                </div>
             </div>
             <form class="form-horizontal" id="form_plan" style="display: none;">
                 <div class="form-inline" style="margin-bottom: 10px;">
-                    <input type="hidden" name="author" value="{$smarty.session.uid|default: '33'}"/>
+                    <input type="hidden" name="author" value="{$smarty.session.user.id|default: ''}"/>
                     <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" name="title" style="width: 329px;">
                     <select name="type" class="form-control">
                         <option value='week'>周任务</option>

@@ -77,7 +77,7 @@ var myplanview = function () {
                     //alert('添加成功');
                     var step = result.step;
                     var match = ko.utils.arrayFirst(self.plans(), function (item) {
-                        return step.plan_id === item.id;
+                        return step.plan_id == item.id;
                     });
                     if (match) {
                         match.steps.push(step);

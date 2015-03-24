@@ -58,14 +58,14 @@
             <div class="container">
                 <div class="row centered">
                     <div class="col-lg-12">
-                        <h1>Welcome To <b>Pratt</b></h1>
-                        <h3>Show your product with this handsome theme.</h3>
+                        <h1>学我</b></h1>
+                        <h3>一个制订学习计划，分享的地方</h3>
                         <br>
                     </div>
 
                     <div class="col-lg-2">
-                        <h5>Amazing Results</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <h5>便捷的操作</h5>
+                        <p>轻松定制你自己的学习计划.</p>
                         <img class="hidden-xs hidden-sm hidden-md" src="/assets/pratt/img/arrow1.png">
                     </div>
                     <div class="col-lg-8">
@@ -74,8 +74,8 @@
                     <div class="col-lg-2">
                         <br>
                         <img class="hidden-xs hidden-sm hidden-md" src="/assets/pratt/img/arrow2.png">
-                        <h5>Awesome Design</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <h5>实时的分享</h5>
+                        <p>分享和收获你的学习成果</p>
                     </div>
                 </div>
             </div> <!--/ .container -->
@@ -87,7 +87,7 @@
         <div id="intro">
             <div class="container">
                 <div class="row centered">
-                    <h1>Designed To Excel</h1>
+                    <h1>定制计划</h1>
                     <br>
                     <br>
                     <div class="col-lg-4">

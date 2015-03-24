@@ -27,7 +27,7 @@ class Remotejs extends BaseController {
         ), JSON_FORCE_OBJECT | JSON_UNESCAPED_SLASHES) . ';';
         $this->load->model('PlanModel');
         $this->load->model('StepModel');
-        $uid = isset($_SESSION['uid']) ? $_SESSION['uid'] : '33';
+        $uid = isset($_SESSION['user']) ? $_SESSION['user']['id'] : '';
         $myplans = $this->PlanModel->getbyuid($uid);
         $plansteps = $this->StepModel->getbyuid($uid);
         foreach ($myplans as &$plan) {
