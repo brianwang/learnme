@@ -7,6 +7,4 @@
         </div>
     </section>
 </section>
-
-{include file="layouts/footer.tpl"}
 {/block}

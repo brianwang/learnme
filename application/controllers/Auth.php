@@ -59,11 +59,12 @@ class Auth extends BaseController {
             if ($userdata['password'] == $userdata['confirm_password']) {
                 $this->load->model('UserModel');
                 unset($userdata['confirm_password']);
-                $user = $this->UserModel->get_where(array('email' => $userdata['email']));
+                $user = $this->UserModel->get_by(array('email' => $userdata['email']));
                 if ($user == null) {
                     $userdata['password'] = md5($userdata['password']);
                     $this->UserModel->insert($userdata, TRUE);
-                    $_SESSION['user'] = $userdata;
+                    $user = $this->UserModel->get_by(array('email' => $userdata['email']));
+                    $_SESSION['user'] = $user;
                     $this->smarty->view('register_success.tpl');
                 } else {
                     $error = '用户已存在';

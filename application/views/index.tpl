@@ -87,23 +87,23 @@
         <div id="intro">
             <div class="container">
                 <div class="row centered">
-                    <h1>定制计划</h1>
+                    <h1>用途</h1>
                     <br>
                     <br>
                     <div class="col-lg-4">
                         <img src="/assets/pratt/img/intro01.png" alt="">
-                        <h3>Community</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <h3>分享</h3>
+                        <p>分享你的学习内容和计划</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="/assets/pratt/img/intro02.png" alt="">
-                        <h3>Schedule</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <h3>计划</h3>
+                        <p>合理安排你的时间和任务</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="/assets/pratt/img/intro03.png" alt="">
-                        <h3>Monitoring</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <h3>高效</h3>
+                        <p>大数据帮你分析你的学习行为</p>
                     </div>
                 </div>
                 <br>
@@ -115,7 +115,7 @@
         <div id="features">
             <div class="container">
                 <div class="row">
-                    <h1 class="centered">What's New?</h1>
+                    <h1 class="centered">特点</h1>
                     <br>
                     <br>
                     <div class="col-lg-6 centered">
