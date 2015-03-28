@@ -5,8 +5,10 @@
     {bower('jquery.validate/dist/additional-methods.js')}
     <link rel="stylesheet" href="{base_url('/assets/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}">
     <link rel="stylesheet" href="{base_url('/assets/bower_components/form.validation/dist/css/bootstrapValidator.css')}">
-    {bower('form.validation/dist/js/bootstrapValidator.js')}
+    {*{bower('form.validation/dist/js/bootstrapValidator.js')}*}
+    {js('form-component.js')}
     {js('../../js/myplan.js')}
+
     <script type="text/html" id="seasonTemplate">
         <li>
             <strong data-bind="text: name"></strong>
@@ -46,7 +48,7 @@
                     <a data-bind="click: $parent.finish" title="完成计划" class="col-md-1">
                         <h3 class="glyphicon glyphicon-ok"></h3>                            
                     </a>
-                    <div class="col-md-10">
+                    <div class="col-md-6">
                         <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id },click: $parent.updateplan">
                             <h3 data-bind="text: $data.title"></h3>
                         </a>
@@ -56,7 +58,12 @@
                             <a class="btn btn-info" data-bind="click: $parent.closesave">关闭</a>
                         </div>
                     </div>
-
+                    <div class="col-md-2">
+                        <input type="checkbox" checked="" data-switch-toggle="state" data-on-text="重要" data-off-text="不重要"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急"/>
+                    </div>
                     <a data-bind="click: $parent.showsteps" title="展开步骤" class="col-md-1">
                         <h3 class="glyphicon glyphicon-list"></h3>                            
                     </a>                                                 
@@ -132,7 +139,7 @@
     </div>
 
 
-
+    <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急"/>
     <div id="planopts">
 
 

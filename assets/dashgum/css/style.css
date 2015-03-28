@@ -1798,6 +1798,7 @@ label {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    top: 20px;
 }
 .has-switch.deactivate {
     opacity: 0.5;
@@ -1811,7 +1812,7 @@ label {
 .has-switch > div {
     width: 162%;
     position: relative;
-    top: 0;
+    top: 0px;
 }
 .has-switch > div.switch-animate {
     -webkit-transition: left 0.25s ease-out;

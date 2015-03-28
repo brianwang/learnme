@@ -7,38 +7,42 @@ class Auth extends BaseController {
 
     //首页
     public function login() {
-        //$this->smarty->view('plans.tpl');
-        $userdata = $this->input->post();
-        $sessiontime = isset($userdata['sessiontime']) ? $userdata['sessiontime'] : '';
-        if ($sessiontime != '') {
-            $lasttime = base64_decode($sessiontime);
-            $duration = time() - $lasttime;
-            if ($duration <= 3) {
-                $error = '不要重复登录';
-                redirect_back($error);
+        if (isset($_SESSION['user'])) {
+            redirect('/page/dashboard');
+        } else {
+            //$this->smarty->view('plans.tpl');
+            $userdata = $this->input->post();
+            $sessiontime = isset($userdata['sessiontime']) ? $userdata['sessiontime'] : '';
+            if ($sessiontime != '') {
+                $lasttime = base64_decode($sessiontime);
+                $duration = time() - $lasttime;
+                if ($duration <= 3) {
+                    $error = '不要重复登录';
+                    redirect_back($error);
+                }
             }
-        }
-        unset($userdata['sessiontime']);
-        unset($_SESSION['user']);
-        if ($this->form_validation->run('login') == true) {
-            $this->load->model('UserModel');
-            $user = $this->UserModel->as_array()->get_by(array('email' => $userdata['email']));
-            if (!empty($user)) {
-                if (md5($userdata['password']) == $user['password']) {
-                    $_SESSION['user'] = $user;
-                    unset($_SESSION['flash_data']);
-                    $this->smarty->view('register_success.tpl', array('frompage' => '登录'));
+            unset($userdata['sessiontime']);
+            unset($_SESSION['user']);
+            if ($this->form_validation->run('login') == true) {
+                $this->load->model('UserModel');
+                $user = $this->UserModel->as_array()->get_by(array('email' => $userdata['email']));
+                if (!empty($user)) {
+                    if (md5($userdata['password']) == $user['password']) {
+                        $_SESSION['user'] = $user;
+                        unset($_SESSION['flash_data']);
+                        $this->smarty->view('register_success.tpl', array('frompage' => '登录'));
+                    } else {
+                        $error = '密码错误';
+                        redirect_back($error);
+                    }
                 } else {
-                    $error = '密码错误';
+                    $error = '用户不存在';
                     redirect_back($error);
                 }
             } else {
-                $error = '用户不存在';
-                redirect_back($error);
+                $errors = validation_errors();
+                redirect_back($errors);
             }
-        } else {
-            $errors = validation_errors();
-            redirect_back($errors);
         }
     }
 
