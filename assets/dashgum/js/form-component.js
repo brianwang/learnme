@@ -78,7 +78,7 @@ var Script = function () {
 
         // Switch
         //$(".switch").bootstrapSwitch();
-        $("input[type=\"checkbox\"]").bootstrapSwitch();
+        //$("input[type=\"checkbox\"]").bootstrapSwitch();
 //        $("[data-switch-toggle]").on("click", function () {
 //            var type;
 //            type = $(this).data("switch-toggle");

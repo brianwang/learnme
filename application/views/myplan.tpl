@@ -58,12 +58,6 @@
                             <a class="btn btn-info" data-bind="click: $parent.closesave">关闭</a>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <input type="checkbox" checked="" data-switch-toggle="state" data-on-text="重要" data-off-text="不重要"/>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急"/>
-                    </div>
                     <a data-bind="click: $parent.showsteps" title="展开步骤" class="col-md-1">
                         <h3 class="glyphicon glyphicon-list"></h3>                            
                     </a>                                                 
@@ -76,8 +70,16 @@
                     <!-- ko foreach: { data: $data.steps, as: 'step' }-->
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <span data-bind="text: step.title"></span></div>
+                            <div class="col-md-2">
+                                <input type="checkbox" checked="" data-switch-toggle="state" data-on-text="重要" data-off-text="不重要" 
+                                       data-bind="bootstrapSwitch: step.importance"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急" 
+                                       data-bind="bootstrapSwitch: step.emergency "/>
+                            </div>
                             <div class="col-md-2">
                                 <span data-bind="text: step.create_time"></span>
                             </div>

@@ -1,7 +1,9 @@
-var stepmodel = function (title, idx) {
+var stepmodel = function (title, idx, importance, emergency) {
     var self = this;
     self.title = ko.observable(title);
     self.idx = ko.observable(idx);
+    self.importance = ko.observable(importance);
+    self.emergency = ko.observable(emergency);
     return self;
 }
 
@@ -44,7 +46,7 @@ var myplanview = function () {
         plan.steps = ko.observableArray([]);
         for (var j = 0; j < steps.length; j++) {
             var step = steps[j];
-            plan.steps.push(new stepmodel(step.title, step.idx));
+            plan.steps.push(new stepmodel(step.title, step.idx, step.importance, step.emergency));
         }
         self.plans.push(plan);
     }
