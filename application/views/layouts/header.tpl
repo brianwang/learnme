@@ -46,7 +46,7 @@
         {bower('jquery-serializeForm/dist/jquery-serializeForm.js')}
         
         {bower('knockout/dist/knockout.debug.js')}
-        {*{bower('bootstrap-switch/dist/js/bootstrap-switch.js')}*}
+        {bower('bootstrap-switch/dist/js/bootstrap-switch.js')}
         {js('ko.bindingHandlers.bootstrapSwitch.js')}
         <script src="{site_url('/remotejs/config')}"></script>
     {block name=header}{/block}
