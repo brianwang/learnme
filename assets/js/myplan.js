@@ -1,9 +1,10 @@
-var stepmodel = function (title, idx, importance, emergency) {
+var stepmodel = function (title, idx, importance, emergency, createtime) {
     var self = this;
     self.title = ko.observable(title);
     self.idx = ko.observable(idx);
     self.importance = ko.observable(importance);
     self.emergency = ko.observable(emergency);
+    self.createtime = ko.observable(createtime);
     return self;
 }
 
@@ -46,7 +47,7 @@ var myplanview = function () {
         plan.steps = ko.observableArray([]);
         for (var j = 0; j < steps.length; j++) {
             var step = steps[j];
-            plan.steps.push(new stepmodel(step.title, step.idx, step.importance, step.emergency));
+            plan.steps.push(new stepmodel(step.title, step.idx, step.importance, step.emergency, step.create_time));
         }
         self.plans.push(plan);
     }
@@ -132,7 +133,7 @@ var myplanview = function () {
     self.update = self.add;
 
     self.remove = function () {
-        var planid = $(this).before();
+        var planid = $(this).before();updateplan
         $.post(planurls.rmurl, {planid: planid}, function (result) {
             if (result.result == 'success') {
                 alert('添加成功');
@@ -165,7 +166,7 @@ var myplanview = function () {
     self.updateplan = function (plan) {
         //$('#updateplan_'+plan.id).append()
         var inputid = '#input_' + plan.id;
-        $(inputid).toggle();
+        $(inputid).show();
         $(inputid).prev().hide();
         //var title = $('#input_'+plan.id).value;
     }

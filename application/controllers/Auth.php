@@ -12,15 +12,6 @@ class Auth extends BaseController {
         } else {
             //$this->smarty->view('plans.tpl');
             $userdata = $this->input->post();
-            $sessiontime = isset($userdata['sessiontime']) ? $userdata['sessiontime'] : '';
-            if ($sessiontime != '') {
-                $lasttime = base64_decode($sessiontime);
-                $duration = time() - $lasttime;
-                if ($duration <= 3) {
-                    $error = '不要重复登录';
-                    redirect_back($error);
-                }
-            }
             unset($userdata['sessiontime']);
             unset($_SESSION['user']);
             if ($this->form_validation->run('login') == true) {

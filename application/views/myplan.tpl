@@ -44,44 +44,54 @@
         <div id="planlist" class="col-md-8 list-group">
             <!-- ko foreach: plans -->
             <div class="list-group-item">
-                <div class="row">
-                    <a data-bind="click: $parent.finish" title="完成计划" class="col-md-1">
-                        <h3 class="glyphicon glyphicon-ok"></h3>                            
-                    </a>
-                    <div class="col-md-6">
-                        <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id },click: $parent.updateplan">
-                            <h3 data-bind="text: $data.title"></h3>
+                <div class="row" style="font-size: 1.8em;">
+                    <div class="col-md-8">
+                        <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id }">
+                            <span data-bind="text: $data.title"></span>
                         </a>
                         <div data-bind="attr:{ id: 'input_'+$data.id},visible: $('input_'+$data.id).before().is(':visible')">
                             <input type="text" name="title" value="" data-bind="attr:{ value: $data.title}">
-                            <a class="btn btn-default" data-bind="click: $parent.saveplan">保存</a>
-                            <a class="btn btn-info" data-bind="click: $parent.closesave">关闭</a>
+                            <a  data-bind="click: $parent.saveplan">
+                                <span class="glyphicon glyphicon-ok-circle"></span></a>
+                            <a data-bind="click: $parent.closesave">
+                                <span class="glyphicon glyphicon-remove-circle"></span></a>
                         </div>
                     </div>
-                    <a data-bind="click: $parent.showsteps" title="展开步骤" class="col-md-1">
-                        <h3 class="glyphicon glyphicon-list"></h3>                            
-                    </a>                                                 
+                    <div class="col-md-3" >
+                        <a data-bind="click: $parent.updateplan" title="修改" >
+                            <span class="glyphicon glyphicon-edit"></span>                            
+                        </a> 
+                        <a data-bind="click: $parent.showsteps" title="展开步骤" >
+                            <span class="glyphicon glyphicon-list"></span>                            
+                        </a> 
+                        <a data-bind="click: $parent.finish" title="完成计划">
+                            <span class="glyphicon glyphicon-ok"></span>                            
+                        </a>
+                    </div>
                     <div data-bind="attr: { id: 'updateplan_'+$data.id}"></div>
                 </div>
             </div>
             <div data-bind="attr: { id: 'steps_'+$data.id }" style="display:none; margin: 3px 0 0 15px;">
                 <span data-bind="text: console.log($data.steps())"></span>
-                <ul class="list-group" >
+                <ul class="list-group" style="font-size: 1.2em;">
                     <!-- ko foreach: { data: $data.steps, as: 'step' }-->
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-6">
                                 <span data-bind="text: step.title"></span></div>
-                            <div class="col-md-2">
-                                <input type="checkbox" checked="" data-switch-toggle="state" data-on-text="重要" data-off-text="不重要" 
+                            <div class="col-md-3">
+                                <input type="checkbox" checked="" data-switch-toggle="state" data-on-text="重要" data-off-text="不重要"  data-size="mini"
                                        data-bind="bootstrapSwitch: step.importance"/>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急" 
+                                <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急" data-size="mini"
                                        data-bind="bootstrapSwitch: step.emergency "/>
+
                             </div>
-                            <div class="col-md-2">
-                                <span data-bind="text: step.create_time"></span>
+                            <div class="col-md-1">
+                                <span data-bind="text: step.createtime"></span>
+                            </div>
+                            <div class="col-md-1">
+                                <a><span class="glyphicon glyphicon-ok"></span>                                   
+                                </a>
                             </div>
                         </div>
                     </li>
@@ -96,25 +106,24 @@
                             <input type="hidden" name="plan_id" value="" data-bind="attr: { value: $data.id}"/>
                             <div class="form-inline">
                                 <input type="text" name="title" id="content" placeholder="任务内容" class="form-control">
-                                <a class="btn btn-info" data-bind="click: $parent.addstep">保存</a>
-                                <a class="btn btn-info" data-bind="click: $parent.hideaddstep.bind($data.plan_id)">取消</a>
+                                <a data-bind="click: $parent.addstep">
+                                    <span class="glyphicon glyphicon-ok-circle"></span></a>
+                                <a data-bind="click: $parent.hideaddstep.bind($data.plan_id)">
+                                    <span class="glyphicon glyphicon-remove-circle"></span></a>
                             </div>
                         </form>
                     </li>
                 </ul>
             </div>
             <!-- /ko -->
-            <div id="tmp_addplan" class="list-group-item">
-                <div class="row">
-                    <a data-bind="click: showaddplan" class="row">
-                        <h3><i class="glyphicon glyphicon-plus col-md-1" aria-hidden="true" style="font-size: 1.5em;" ></i>
-                            <span class="col-md-10">
-                                添加新的学习计划</span></h3>
-                    </a>
-                </div>
+            <div id="tmp_addplan" class="list-group-item" style="font-size: 1.5em;">
+                <a data-bind="click: showaddplan">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+                    <span>添加新的学习计划</span>
+                </a>
             </div>
-            <form class="form-horizontal" id="form_plan" style="display: none;">
-                <div class="form-inline" style="margin-bottom: 10px;">
+            <form class="form-horizontal list-group-item" id="form_plan" style="display: none;">
+                <div class="form-inline">
                     <input type="hidden" name="author" value="{$smarty.session.user.id|default: ''}"/>
                     <input type="text" class="form-control" id="plantilte" placeholder="请输入计划标题，不超过255个字符" name="title" style="width: 329px;">
                     <select name="type" class="form-control">
@@ -124,15 +133,15 @@
                         <option value='long'>长期任务</option>
                     </select>
                 </div>
-                <div class="form-inline" style="margin-bottom: 10px;width: 440px;">
+                <div class="form-inline" style="width: 440px;">
                     <input type="text" class="form-control" id="tags" placeholder="输入标签" data-role="tagsinput" name="tags">
                 </div>
                 <div style="width: 440px;">
                     <textarea type="text" class="form-control" id="content" placeholder="计划内容" name="content"></textarea>
                 </div>
-                <div class="form-inline">
-                    <a href="#" class="btn btn-info" data-bind="click: add">保存</a>
-                    <a href="#" class="btn btn-warning" data-bind="click: close">关闭</a>
+                <div class="form-inline" style="font-size: 1.5em;">
+                    <a href="#" data-bind="click: add"><span class="glyphicon glyphicon-ok-circle"></span></a>
+                    <a href="#" data-bind="click: close"><span class="glyphicon glyphicon-remove-circle"></span></a>
                 </div>
             </form>
         </div>
