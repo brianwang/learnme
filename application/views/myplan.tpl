@@ -40,12 +40,11 @@
         </div>
     </div>
     <div class="row-fluid">
-
         <div id="planlist" class="col-md-8 list-group">
             <!-- ko foreach: plans -->
             <div class="list-group-item">
                 <div class="row" style="font-size: 1.8em;">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <a data-bind="attr: { href: $parent.baseurl+'/'+$data.id }">
                             <span data-bind="text: $data.title"></span>
                         </a>
@@ -57,7 +56,7 @@
                                 <span class="glyphicon glyphicon-remove-circle"></span></a>
                         </div>
                     </div>
-                    <div class="col-md-3" >
+                    <div class="col-md-2" >
                         <a data-bind="click: $parent.updateplan" title="修改" >
                             <span class="glyphicon glyphicon-edit"></span>                            
                         </a> 
@@ -72,34 +71,36 @@
                 </div>
             </div>
             <div data-bind="attr: { id: 'steps_'+$data.id }" style="display:none; margin: 3px 0 0 15px;">
-                <span data-bind="text: console.log($data.steps())"></span>
                 <ul class="list-group" style="font-size: 1.2em;">
-                    <!-- ko foreach: { data: $data.steps, as: 'step' }-->
+                    <!-- ko foreach: { data: $data.steps(), as: 'step' }-->
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-6">
                                 <span data-bind="text: step.title"></span></div>
                             <div class="col-md-3">
                                 <input type="checkbox" checked="" data-switch-toggle="state" data-on-text="重要" data-off-text="不重要"  data-size="mini"
-                                       data-bind="bootstrapSwitch: step.importance"/>
+                                       data-bind="bootstrapSwitch: step.important"/>
                                 <input type="checkbox" data-switch-toggle="state" data-on-text="紧急" data-off-text="不紧急" data-size="mini"
                                        data-bind="bootstrapSwitch: step.emergency "/>
 
                             </div>
                             <div class="col-md-1">
-                                <span data-bind="text: step.createtime"></span>
+                                <span data-bind="text: step.create_time"></span>
                             </div>
                             <div class="col-md-1">
-                                <a><span class="glyphicon glyphicon-ok"></span>                                   
+                                <a><span class="glyphicon glyphicon-ok"></span></a>
+                                <a title="修改步骤" data-bind=" click: $parent.updatestep">
+                                    <span class="glyphicon glyphicon-edit"></span>
                                 </a>
                             </div>
                         </div>
                     </li>
                     <!-- /ko -->
                     <li class="list-group-item" data-bind="attr: { id: 'tmp_addstep_'+$data.id }" style="font-size: 1.5em;">
-                        <a data-bind="click: $parent.showaddstep" title="添加计划步骤" data-bind=" click: $data.parnent.showaddstep">
+                        <a title="添加计划步骤" data-bind=" click: $parent.showaddstep">
                             <span class="glyphicon glyphicon-plus-sign"></span>
                         </a>
+
                     </li>
                     <li class= "list-group-item" style="display:none;">
                         <form class="form-horizontal" data-bind="attr: { id: 'form_step_'+$data.id } " >
@@ -116,7 +117,7 @@
                 </ul>
             </div>
             <!-- /ko -->
-            <div id="tmp_addplan" class="list-group-item" style="font-size: 1.5em;">
+            <div id="tmp_addplan" class="list-group-item" style="font-size: 1.5em;text-align: center;">
                 <a data-bind="click: showaddplan">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
                     <span>添加新的学习计划</span>

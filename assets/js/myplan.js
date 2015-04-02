@@ -1,10 +1,19 @@
-var stepmodel = function (title, idx, importance, emergency, createtime) {
+var stepmodel = function () {
     var self = this;
-    self.title = ko.observable(title);
-    self.idx = ko.observable(idx);
-    self.importance = ko.observable(importance);
-    self.emergency = ko.observable(emergency);
-    self.createtime = ko.observable(createtime);
+    for (var ky in arguments[0]) {
+        if (ky != 'id' && ky != 'plan_id') {
+            self[ky] = ko.observable(arguments[0][ky]);
+        } else {
+            self[ky] = arguments[0][ky];
+        }
+    }
+    //console.log(self);
+    //for(var key in arguments)
+//    self.title = ko.observable(title);
+//    self.idx = ko.observable(idx);
+//    self.importance = ko.observable(importance);
+//    self.emergency = ko.observable(emergency);
+//    self.createtime = ko.observable(createtime);
     return self;
 }
 
@@ -14,8 +23,14 @@ var planmodel = function (plan) {
     for (var key in plan) {
         self[key] = plan[key];
     }
-    self.title = ko.observable(plan.title);
 
+    self.title = ko.observable(plan.title);
+    //var steps = plan.steps.slice(0);
+    self.steps = ko.observableArray([]);
+    for (var j = 0; j < plan.steps.length; j++) {
+        self.steps.push(new stepmodel(plan.steps[j]));
+    }
+    //console.log(plan);
 //    .formValidation({
 //        framework: 'bootstrap',
 //        excluded: ':disabled',
@@ -43,12 +58,6 @@ var myplanview = function () {
     self.plans = ko.observableArray([]);
     for (var i = 0; i < gl.plans.length; i++) {
         var plan = new planmodel(gl.plans[i]);
-        var steps = plan.steps.slice(0);
-        plan.steps = ko.observableArray([]);
-        for (var j = 0; j < steps.length; j++) {
-            var step = steps[j];
-            plan.steps.push(new stepmodel(step.title, step.idx, step.importance, step.emergency, step.create_time));
-        }
         self.plans.push(plan);
     }
     self.showaddplan = function () {
@@ -61,6 +70,10 @@ var myplanview = function () {
         //$(this).next().show();
         $('#tmp_addstep_' + plan.id).hide();
         $('#form_step_' + plan.id).parent().show();
+    }
+
+    self.updatestep = function (step) {
+
     }
     self.addstep = function () {
         var planid = this.id;
@@ -78,7 +91,7 @@ var myplanview = function () {
             $.post(planurls.addstepurl, data, function (result) {
                 if (result.result == 'success') {
                     //alert('添加成功');
-                    var step = result.step;
+                    var step = new stepmodel(result.step);
                     var match = ko.utils.arrayFirst(self.plans(), function (item) {
                         return step.plan_id == item.id;
                     });
@@ -98,7 +111,6 @@ var myplanview = function () {
         $('#form_step_' + plan.id).parent().hide();
     }
 
-    //self.plans = ko.observableArray(gl.plans);
     //添加计划
     self.add = function () {
         if ($("#form_plan").valid()) {
@@ -126,14 +138,17 @@ var myplanview = function () {
     self.close = function () {
         //清空Form
         $("#form_plan")[0].reset();
+        $('#tags').tagsinput('removeAll');
         $('#tmp_addplan').show();
         $('#form_plan').hide();
     }
 
     self.update = self.add;
 
+
     self.remove = function () {
-        var planid = $(this).before();updateplan
+        var planid = $(this).before();
+        updateplan
         $.post(planurls.rmurl, {planid: planid}, function (result) {
             if (result.result == 'success') {
                 alert('添加成功');
@@ -179,6 +194,7 @@ var myplanview = function () {
                 var newplan = result.plan;
                 var idx = self.plans.indexOf(plan);
                 self.plans()[idx].title(newplan.title);
+
                 self.closesave(plan);
             } else {
                 alert(result.message);
@@ -217,7 +233,7 @@ $(document).ready(function () {
                 }
             });
     var myplanobj = new myplanview();
-    ko.applyBindings(myplanobj, document.getElementById("addplan"));
+    ko.applyBindings(myplanobj, document.getElementById("planlist"));
 });
 
 //var myplanmodelobj = new myplanmodel();

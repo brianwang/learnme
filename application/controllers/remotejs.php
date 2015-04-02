@@ -35,12 +35,13 @@ class Remotejs extends BaseController {
                 $plan->steps = array();
                 foreach ($plansteps as $idx => $step) {
                     if ($step->plan_id == $plan->id) {
-                        array_splice($plansteps, $idx);
+                        //array_splice($plansteps, $idx);
                         array_push($plan->steps, $step);
                     }
                 }
             }
-
+            //var_dump($myplans);
+            //var_dump($plansteps);
             $output .= 'var gl = ' . json_encode(array(
                         'plans' => $myplans,
                         'steps' => $plansteps

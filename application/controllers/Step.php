@@ -24,6 +24,8 @@ class Step extends ModelController {
                     $data['uid'] = isset($_SESSION['user']) ? $_SESSION['user']['id'] : '';
                     $id = $this->{$this->modelclass}->insert($data, true);
                     $data['id'] = $id;
+                    $data['important'] = -1;
+                    $data['emergency'] = -1;
                     $this->output->json(array('result' => 'success', 'step' => $data));
                 }
             } else {
